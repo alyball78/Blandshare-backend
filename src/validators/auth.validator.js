@@ -9,7 +9,7 @@ body("password")
 .isLength({ min : 6}).withMessage("Le mot de passe doit contenir au minimum 6 caractères"),
     body("pseudo")
         .notEmpty({ min: 2 }).withMessage("Le pseudo doit contenir au minimum 2 caractères"),
-    body("consent")
+    body("consentGiven")
         .custom((value) => value === true).withMessage('Le consentement est requis pour créer un compte'),
 ] 
 

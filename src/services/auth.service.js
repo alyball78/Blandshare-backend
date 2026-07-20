@@ -1,9 +1,9 @@
-import AppErrors from "../errors/AppError.js";
+import AppError from "../errors/AppError.js";
 import * as UserModel from "../models/user.model.js";
 import bcrypt from "bcrypt"; 
-import jwt from "../jsonwebtoken";
+import jwt from "jsonwebtoken";
 
-export const registerUser = async ({ email, password, pseudo, consentGiven }) => {
+export const registerUser = async (email, password, pseudo, consentGiven) => {
     const existing = await UserModel.findByEmail(email);
     if (existing) {
         throw new AppError('Email déjà utilisé', 409);
@@ -21,7 +21,7 @@ export const registerUser = async ({ email, password, pseudo, consentGiven }) =>
     return token;
 };
 
-export const loginUser = async ({ email, password }) => {
+export const loginUser = async ( email, password ) => {
     const user = await UserModel.findByEmail(email);
     if (!user) {
         throw new AppError('Email ou mot de passe incorrect', 401);
@@ -40,3 +40,17 @@ export const loginUser = async ({ email, password }) => {
 
     return token;
 };
+
+export const deleteAccount  = async (userId) =>{
+    const existing = await UserModel.findById(id);
+    if (!existing) {
+        throw new AppError ("utilisateur introuvable", 401)   
+    }
+    const isDeleted= await UserModel.remove(userId);
+    if (!isDeleted){
+throw new AppError("Impossible de supprimer le compte", 400);
+
+    }
+return  ;
+
+}
