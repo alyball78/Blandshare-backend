@@ -20,7 +20,7 @@ export const create = async ({ email, password, pseudo, consentGiven }) => {
 
 export const remove = async (id) => {
 const [result] = await pool.execute(
-"DELETE FROM user WHERE id = ?",
+"DELETE FROM users WHERE id = ?",
 [id]);
 return result.affectedRows=== 1;
 

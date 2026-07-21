@@ -41,12 +41,12 @@ export const loginUser = async ( email, password ) => {
     return token;
 };
 
-export const deleteAccount  = async (userId) =>{
+export const deleteAccount  = async (id) =>{
     const existing = await UserModel.findById(id);
     if (!existing) {
         throw new AppError ("utilisateur introuvable", 401)   
     }
-    const isDeleted= await UserModel.remove(userId);
+    const isDeleted= await UserModel.remove(id);
     if (!isDeleted){
 throw new AppError("Impossible de supprimer le compte", 400);
 
