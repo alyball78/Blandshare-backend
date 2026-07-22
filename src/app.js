@@ -11,6 +11,7 @@ app.use(express.json());
 
 // TODO : brancher les routes ici au fil des étapes
 app.use('/api/auth', authRoutes);
+app.use('/api/categories', categoryRoutes);
 
 app.use(errorHandler);
 
