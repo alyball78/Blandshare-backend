@@ -1,7 +1,7 @@
 import pool from "../config/db.js";
 
 export const findAll = async () => {
-const [rows] = await pool.execute("SELECT * FROM categories");
+    const [rows] = await pool.execute("SELECT * FROM categories");
 return rows;
 }
 
@@ -10,9 +10,9 @@ const [rows] = await pool.execute("SELECT * FROM categories WHERE id = ?", [id])
     return rows[0] || null;
 }
 
-export const create = async (name, slug ) => {
+export const create = async (name, slug) => {
 const [result] = await pool.execute(
-    "INSERT INTO categories (name, slug ) VALUES (?, ?)", [name, slug]);
+    "INSERT INTO categories (name, slug) VALUES (?, ?)", [name, slug]);
 return findById(result.insertId);
 
 };

@@ -1,5 +1,5 @@
 import * as categoryService from "../services/category.service.js";
-export const getAllCategories = async () => {
+export const getAllCategories = async (req, res) => {
 const categories = await categoryService.getAllCategories();
 return res.json(categories);
 }
@@ -10,8 +10,8 @@ return res.json(category);
 
 };
 export const createCategory = async (req, res) => {
-const data =req.body;
-const category = await categoryService.createCategory();
+const {name, slug} = req.body;
+const category = await categoryService.createCategory(name, slug);
     return res.status(201).json(category);
 
 };
