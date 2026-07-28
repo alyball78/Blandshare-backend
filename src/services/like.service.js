@@ -1,4 +1,6 @@
 import * as likeModel from "../models/like.model.js";
+import * as articleModel from "../models/article.model.js";
+
 export const toggleLike = async (userId, articleId) => {
     const article = await articleModel.findById(articleId);
     if (!article) {

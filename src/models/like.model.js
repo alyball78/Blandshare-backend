@@ -10,7 +10,7 @@ export const create = async (userId, articleId) => {
     await pool.execute(sql, [userId, articleId]);
 };
 export const remove = async (userId, articleId) => {
-    const sql = "DELETE $FROM likes WHERE user_id = ? AND article_id = ?";
+    const sql = "DELETE FROM likes WHERE user_id = ? AND article_id = ?";
     await pool.execute(sql, [userId, articleId])
 };
 
