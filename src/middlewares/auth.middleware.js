@@ -1,0 +1,35 @@
+import jwt from 'jsonwebtoken';
+import AppError from '../errors/AppError.js';
+
+export const authenticate = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return next(new AppError('Token manquant', 401));
+    }
+
+    const token = authHeader.split(' ')[1];
+
+
+    try {
+        req.user = jwt.verify(token, process.env.JWT_SECRET);
+        console.log(jwt.verify(token, process.env.JWT_SECRET));
+        next();
+    } catch {
+        next(new AppError('Token invalide', 401));
+    }
+};
+
+export const optionalAuthenticate = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        return next();
+    }
+    const token = authHeader.split(' ')[1];
+    try {
+        req.user = jwt.verify(token, process.env.JWT_SECRET);
+    } catch {
+        // token invalide : on ignore, req.user reste undefined
+    }
+    next();
+};
