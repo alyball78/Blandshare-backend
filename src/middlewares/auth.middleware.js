@@ -13,6 +13,7 @@ export const authenticate = (req, res, next) => {
 
     try {
         req.user = jwt.verify(token, process.env.JWT_SECRET);
+        console.log(jwt.verify(token, process.env.JWT_SECRET));
         next();
     } catch {
         next(new AppError('Token invalide', 401));

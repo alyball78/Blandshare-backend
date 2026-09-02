@@ -2,13 +2,13 @@ import * as articleModel from "../models/article.model.js";
 import AppError from "../errors/AppError.js";
 import slugify from "slugify";
 
-export const getAllArticles = async (isAdmin) => {
-    const articles = await articleModel.findAll(isAdmin);
+export const getAllArticles = async (isAdmin, limit) => {
+    const articles = await articleModel.findAll(isAdmin, limit);
 return articles;
 };
 
 export const getArticleById = async (id) => {
-const article = await articleModel.getArticleById(id);
+const article = await articleModel.findById(id);
 if (!article){
 throw new AppError("Article introuvable", 404);
 };
@@ -35,7 +35,7 @@ const updatedArticle = await articleModel.update(id, {...data, slug});
     return updatedArticle;    
 };
 
-export const deleteArticle = async (id) => {
+export const remove = async (id) => {
     const article = await articleModel.findById(id);
     if (!article) {
         throw new AppError("Article introuvable", 404);

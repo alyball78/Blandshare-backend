@@ -11,6 +11,6 @@ export const validateArticle = [
     body("cover_image_url")
         .isURL().withMessage("Le champ doit êztre une url"), ,
     body("category_id")
-        .isInt().withMessage("Le champ être un nombre entier positif"), ,
+        .isInt().withMessage("Le champ être un nombre entier positif"),
     body("status").isIn(['draft', 'published']).withMessage("Le champ est soit draft soit published"),
 ] 
