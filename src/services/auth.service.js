@@ -41,6 +41,28 @@ export const loginUser = async ( email, password ) => {
     return token;
 };
 
+export const getUserById = async (id) => {
+  const [rows] = await pool.execute(
+    "SELECT id, pseudo, email, role FROM users WHERE id = ?",
+    [id],
+  );
+
+  if (rows.length === 0) {
+    throw new AppError("Utilisateur introuvable", 404);
+  }
+
+  return rows[0];
+};
+
+export const updateUser = async (id, pseudo, email) => {
+  await pool.execute("UPDATE users SET pseudo = ?, email = ? WHERE id = ?", [
+    pseudo,
+    email,
+    id,
+  ]);
+
+  return getUserById(id);
+};
 export const deleteAccount  = async (id) =>{
     const existing = await UserModel.findById(id);
     if (!existing) {

@@ -14,6 +14,31 @@ const token = await authService.loginUser(email, password);
 
 }
 
+export const getMe = async (req, res, next) => {
+  try {
+    const user = await authService.getUserById(req.user.id);
+
+    res.json(user);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updateMe = async (req, res, next) => {
+  try {
+    const { pseudo, email } = req.body;
+
+    const updatedUser = await authService.updateUser(
+      req.user.id,
+      pseudo,
+      email,
+    );
+
+    res.json(updatedUser);
+  } catch (error) {
+    next(error);
+  }
+};
 export const deleteMe = async(req, res) => {
     const id = req.user.id 
     await authService.deleteAccount(id);
