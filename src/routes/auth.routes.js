@@ -16,11 +16,11 @@ router.get("/me", authenticate, authController.getMe);
 router.put(
   "/me",
   authenticate,
-  validateAccountUpdate,
-  validate,
+  //validateAccountUpdate,
+  //validate,
   authController.updateMe,
 );
 
-router.delete("/me", authenticate, authController.deleteAccount);
+//router.delete("/me", authenticate, authController.deleteAccount);
 router.delete("/me", authenticate, authController.deleteMe);
 export default router;
