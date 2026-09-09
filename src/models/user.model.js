@@ -6,7 +6,10 @@ export const findByEmail = async (email) => {
 };
 
 export const findById = async (id) => {
-    const [rows] = await pool.execute('SELECT * FROM users WHERE id = ?', [id]);
+    const [rows] = await pool.execute(
+      "SELECT id, pseudo, email, role FROM users WHERE id = ?",
+      [id],
+    );
     return rows[0] || null;
 };
 
@@ -25,3 +28,12 @@ const [result] = await pool.execute(
 return result.affectedRows=== 1;
 
 }
+
+export const update = async (id, pseudo, email) => {
+  const [result] = await pool.execute(
+    "UPDATE users SET pseudo = ?, email = ? WHERE id = ?",
+    [pseudo, email, id],
+  );
+
+  return result.affectedRows === 1;
+};
