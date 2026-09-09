@@ -4,7 +4,7 @@ import slugify from "slugify";
 
 export const getAllArticles = async (isAdmin, limit) => {
     const articles = await articleModel.findAll(isAdmin, limit);
-return articles;
+    return articles;
 };
 
 export const getArticleById = async (id) => {

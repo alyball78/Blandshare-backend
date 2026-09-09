@@ -2,20 +2,21 @@ import pool from "../config/db.js";
 
 export const findAll = async (includeDrafts, limit) => {
   let sql = includeDrafts
-    ? "SELECT * FROM articles"
-    : "SELECT * FROM articles WHERE status = 'published'";
+    ? "SELECT articles.*, categories.name AS category_name FROM articles JOIN categories ON articles.category_id = categories.id"
+    : "SELECT articles.*, categories.name AS category_name FROM articles JOIN categories ON articles.category_id = categories.id WHERE status = 'published'";
   sql += " ORDER BY created_at DESC";
   if (limit) {
-    sql += " LIMIT 3";
+    sql += " LIMIT 4";
   }
   const [rows] = await pool.execute(sql);
   return rows;
 };
 
 export const findById = async (id) => {
-  const [rows] = await pool.execute("SELECT * FROM articles where id = ?", [
-    id,
-  ]);
+  const [rows] = await pool.execute(
+    "SELECT articles.*, categories.name AS category_name FROM articles JOIN categories ON articles.category_id = categories.id WHERE articles.id = ?",
+    [id],
+  );
   return rows[0] ?? null;
 };
 

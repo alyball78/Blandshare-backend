@@ -1,14 +1,16 @@
 import { Router } from "express";
-import { ValidationHalt } from "express-validator/lib/base.js";
 import * as articleController from "../controller/article.controller.js";
 import * as likeController from "../controller/like.controller.js";
 import { validateArticle } from "../validators/article.validator.js";
 import validate from "../middlewares/validate.middleware.js";
-import {authenticate } from "../middlewares/auth.middleware.js";
+import {
+  authenticate,
+  optionalAuthenticate,
+} from "../middlewares/auth.middleware.js";
 import {authorize} from "../middlewares/authorize.middleware.js";
 
 const router = Router();
-router.get("/", articleController.getAllArticles);
+router.get("/", optionalAuthenticate, articleController.getAllArticles);
 router.get("/:id", articleController.getArticleById);
 router.post("/", authenticate, authorize('admin'), validateArticle, validate, articleController.createArticle);
 router.post("/:articleId/likes", authenticate, likeController.toggleLike);
